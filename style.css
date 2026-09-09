@@ -1,43 +1,156 @@
-:root{
-    --cor-fundo: #01080E ;
-    --cor-principal: #0B0D20 ;
-    --cor-secundaria: #212333; 
-    --cor-destaque: #2BDEFD;
-    --cor-texto: #D7F9FF;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@400;700&display=swap');
 
+:root {
+    /* Cores Globais da Tela */
+    --cor-fundo-tela: #030d03;          /* Verde escuro profundo no fundo geral */
+    --cor-principal: #071707;           /* Fundo da caixa principal */
+    --cor-card: #0e260e;                /* Fundo das perguntas e opções */
+    --cor-verde-radioativo: #00ff22;    /* Verde fluorescente para destaques e brilhos */
+    --cor-amarelo-alerta: #ffea00;      /* Amarelo de radiação */
+    --cor-texto: #ccffcc;               /* Texto claro e visível */
+    --cor-borda: #184d18;
+    --sombra-glow: 0 0 20px rgba(0, 255, 34, 0.5);
 }
 
-body {
-    background-color: var(--cor-fundo);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Muda o fundo da página inteira */
+html, body {
+    background-color: var(--cor-fundo-tela);
+    /* Efeito de iluminação verde no centro da tela e grade cibernética */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 255, 34, 0.12) 0%, transparent 70%),
+        linear-gradient(rgba(0, 255, 34, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 34, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
     color: var(--cor-texto);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
-
-.caixa-principal{
-    background-color: var(--cor-principal);
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
     padding: 20px;
 }
 
-h1{
-    color: var(--cor-destaque);
+.caixa-principal {
+    background-color: var(--cor-principal);
+    border: 2px solid var(--cor-verde-radioativo);
+    box-shadow: var(--sombra-glow), inset 0 0 20px rgba(0, 255, 34, 0.15);
+    width: 100%;
+    max-width: 650px;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Faixa de perigo amarela e preta no topo */
+.caixa-principal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--cor-amarelo-alerta),
+        var(--cor-amarelo-alerta) 15px,
+        #000 15px,
+        #000 30px
+    );
+}
+
+.header-radiacao {
+    margin-bottom: 25px;
+}
+
+.icone-alerta {
+    font-size: 2.8rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 10px var(--cor-amarelo-alerta));
+    animation: pulso 2s infinite ease-in-out;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cor-verde-radioativo);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(0, 255, 34, 0.7);
+    margin-top: 5px;
+}
+
+.subtitulo {
+    color: #8fae8f;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.caixa-perguntas {
+    font-size: 1.15rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    background-color: var(--cor-card);
+    padding: 18px;
+    border-radius: 10px;
+    border-left: 5px solid var(--cor-amarelo-alerta);
+    border-right: 1px solid var(--cor-borda);
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.caixa-alternativas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 button {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-card);
     color: var(--cor-texto);
-    border: none;
-    border-radius: 15px;
-    padding: 15px;
-    transition: background-color 0.3s;
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.4;
 }
 
-button:hover{
-    background-color: var(--cor-destaque);
-    color: var(--cor-principal);
+button:hover {
+    background-color: rgba(0, 255, 34, 0.2);
+    border-color: var(--cor-verde-radioativo);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 255, 34, 0.5);
+    transform: translateX(6px);
+}
+
+.texto-resultado {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.item-resultado {
+    background-color: var(--cor-card);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid var(--cor-verde-radioativo);
+    margin-bottom: 12px;
+    line-height: 1.5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pulso {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.85; }
 }
